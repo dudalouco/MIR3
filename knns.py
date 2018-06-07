@@ -50,7 +50,7 @@ for ea in pred:
 
 preddf = pd.DataFrame(pred_int[:len(pred)], columns=['"Genres"'])
 preddf.index = np.arange(1, len(preddf) + 1)
-preddf.to_csv('predicted.csv', index_label='"Id"', quoting=csv.QUOTE_NONE)
+preddf.to_csv('submission.csv', index_label='"Id"', quoting=csv.QUOTE_NONE)
 # #
 
 
