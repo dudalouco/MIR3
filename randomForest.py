@@ -3,6 +3,8 @@ import pandas as pd
 import csv
 
 from sklearn.neighbors import KNeighborsClassifier as KNN
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import mutual_info_classif
 from sklearn.ensemble import RandomForestClassifier as RF
 from sklearn.datasets import make_classification
 # from sklearn.model_selection import cross_val_score
@@ -21,12 +23,16 @@ X = df.drop(['GENRE'], axis=1).values
 test = pd.read_csv(DATA_PATH + DATA_FILES[2])
 
 
+kbest = SelectKBest(mutual_info_classif, k=100)
+
+X_new = kbest.fit_transform(X, y)
 
 #X, y = make_classification(n_samples=len(df), n_features=191, n_informative=2, n_redundant=0, random_state=0, shuffle=False)
 clf = RF(max_depth=2, random_state=0)
-clf.fit(X, y)
+clf.fit(X_new, y)
 print(clf.feature_importances_)
-pred = clf.predict(test)
+
+pred = clf.predict(kbest.transform(test))
 
 
 
