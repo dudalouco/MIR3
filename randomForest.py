@@ -23,18 +23,18 @@ X = df.drop(['GENRE'], axis=1).values
 test = pd.read_csv(DATA_PATH + DATA_FILES[2])
 
 
-kbest = SelectKBest(mutual_info_classif, k=100)
+#kbest = SelectKBest(mutual_info_classif, k=100)
 
-X_new = kbest.fit_transform(X, y)
+#X_new = kbest.fit_transform(X, y)
 
 #X, y = make_classification(n_samples=len(df), n_features=191, n_informative=2, n_redundant=0, random_state=0, shuffle=False)
-clf = RF(max_depth=2, random_state=0)
-clf.fit(X_new, y)
+clf = RF(max_depth=None, random_state=0)
+clf.fit(X, y)
 print(clf.feature_importances_)
 
-pred = clf.predict(kbest.transform(test))
+#pred = clf.predict(kbest.transform(test))
 
-
+pred = clf.predict(test)
 
 # for nn in range(3, 30):
 #     knn = KNN(n_neighbors=nn)
