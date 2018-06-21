@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import csv
-
+from sklearn.ensemble import AdaBoostClassifier
 from sklearn.preprocessing import *
 from sklearn.neighbors import KNeighborsClassifier as KNN
 from sklearn.feature_selection import SelectKBest
@@ -37,11 +37,13 @@ test = pd.read_csv(DATA_PATH + DATA_FILES[2])
 
 
 
-clf = RF(random_state=42)
-clf.fit(X, y)
-print(clf.feature_importances_)
+# Create adaboost-decision tree classifer object
+clf = AdaBoostClassifier(n_estimators=50,
+                         learning_rate=1,
+                         random_state=0)
 
 #pred = clf.predict(kbest.transform(test))
+clf.fit(X, y)
 
 pred = clf.predict(test)
 
